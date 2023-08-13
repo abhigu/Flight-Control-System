@@ -1,12 +1,12 @@
 
-public class FlightComputerMk1 {
-	
+public class FlightComputerMk2 {
+	private double dragCoefficient;
 	private double airDensity; //assumed as constant, will become a function of temperature and pressure
 	private double surfaceArea; //assumed as constant, will become a function of deployment angle of airbreak
 	private double mass;
 	private double weight;
 	
-	public FlightComputerMk1(double aD, double sA, double m, double w) {
+	public FlightComputerMk2(double aD, double sA, double m, double w) {
 		this.airDensity = aD;
 		this.surfaceArea = sA;
 		this.mass = m;
@@ -14,6 +14,7 @@ public class FlightComputerMk1 {
 	}
 	
 	public double estimateApogee(double currAlt, double currVel, double currAcc) {
+		dragCoefficient = calculateDragCoefficient(currVel, currAcc);
 		double calcAlt = currAlt;
 		double calcVel = currVel;
 		double calcAcc = currAcc;
@@ -43,7 +44,7 @@ public class FlightComputerMk1 {
 	public double getK(double currVel, double currAcc) {
 		double K = 0;
 		
-		double den = -1 * calculateDragCoefficient(currVel, currAcc) * airDensity * surfaceArea;
+		double den = -1 * dragCoefficient * airDensity * surfaceArea;
 		double num = 2 * mass;
 		
 		K = den/num;
@@ -51,8 +52,8 @@ public class FlightComputerMk1 {
 	}
 	 
 	public static void main (String[] args) {
-		FlightComputerMk1 ToBoldyGo = new FlightComputerMk1(1.16, 0.004046, 0.573, 5.62113);
-		System.out.println(ToBoldyGo.estimateApogee(100, 72.5, -17.5));
+		FlightComputerMk2 ToBoldyGo = new FlightComputerMk2(1.16, 0.004046, 0.573, 5.62113);
+		System.out.println(ToBoldyGo.estimateApogee(293, 11.5, -10));
 	}
 }
 
