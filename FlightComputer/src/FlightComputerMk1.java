@@ -20,7 +20,7 @@ public class FlightComputerMk1 {
 		double t = 0;
 		
 		while (calcVel > 0.5) {
-			calcVel = estimateVelocity(calcVel, calcAcc);
+			calcVel = 0.1*calcAcc + calcVel;
 			calcAlt = 0.1*calcVel + calcAlt;
 			calcAcc = getK(calcVel, calcAcc)*calcVel*calcVel - 9.807;
 			t += 0.1;
@@ -39,10 +39,6 @@ public class FlightComputerMk1 {
 		return Cd;
 	}
 	
-	private double estimateVelocity(double currVel, double currAcc) {
-		return 0.1*currAcc + currVel;
-	}
-	
 	public double getK(double currVel, double currAcc) {
 		double K = 0;
 		
@@ -55,7 +51,7 @@ public class FlightComputerMk1 {
 	 
 	public static void main (String[] args) {
 		FlightComputerMk1 ToBoldyGo = new FlightComputerMk1(1.16, 0.004046, 0.573, 5.62113);
-		System.out.println(ToBoldyGo.estimateApogee(160, 57, -15));
+		System.out.println(ToBoldyGo.estimateApogee(100, 72.5, -12.5));
 	}
 }
 
@@ -73,4 +69,10 @@ public class FlightComputerMk1 {
 double deltaVel = currAcc/10;
 double estimVel = currVel + deltaVel;
 return estimVel;
+*/
+
+/*
+private double estimateVelocity(double currVel, double currAcc) {
+		return 0.1*currAcc + currVel;
+	}
 */
